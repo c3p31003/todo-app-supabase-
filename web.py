@@ -77,7 +77,7 @@ elif auth_status is False:
 
 else:
     # 未ログイン
-    st.warning("まずはログインしてね🤨")
+    st.warning("新規登録してからログインしてね🤨")
 
     st.divider()
     st.subheader("新規登録")
