@@ -24,14 +24,22 @@ SUPABASE_KEY = "<your-anon-or-service-role-key>"
 
 [cookie]
 name = "todo_app_cookie"
-key = "replace-with-random-secret"
+key = "replace-with-32+char-cryptographically-secure-random-string"
 expiry_days = 30
 ```
 
+`cookie.key` には十分に長いランダム文字列を設定してください（例: `python -c "import secrets; print(secrets.token_urlsafe(32))"`）。
+
 3. Supabase 側でテーブルを用意
 
-- `users` テーブル: `username`, `password`
-- `todos` テーブル: `id`, `task`, `user_id`, `created_at`
+- `users` テーブル
+  - `username` (`text`, `unique`, `not null`)
+  - `password` (`text`, `not null`) ※ハッシュ化した値を保存
+- `todos` テーブル
+  - `id` (`bigint` などの主キー)
+  - `task` (`text`, `not null`)
+  - `user_id` (`text`, `not null`)
+  - `created_at` (`timestamp`, `default now()`)
 
 ## 起動
 
@@ -43,4 +51,3 @@ streamlit run web.py
 
 - `web.py`: Streamlit UI と認証・画面制御
 - `functions.py`: Supabase への CRUD 処理
-
