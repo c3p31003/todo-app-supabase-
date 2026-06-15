@@ -33,6 +33,10 @@ authenticator.login(location="main")
 auth_status = st.session_state.get("authentication_status")
 username = st.session_state.get("username")
 
+with st.sidebar:
+    st.subheader("About")
+    st.caption("Supabase を使ったシンプルな Todo アプリです。")
+
 if auth_status:
     # ログイン済み：Todoアプリ
     authenticator.logout("Logout", "sidebar")
