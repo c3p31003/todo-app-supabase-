@@ -12,7 +12,7 @@ def get_users(supabase):
     return credentials
 
 def register_user(supabase, username, password):
-    hashed = stauth.Hasher.hash(password)
+    hashed = stauth.Hasher.hash_passwords([password])[0]
     supabase.table("users").insert({
         "username": username,
         "password": hashed
