@@ -1,6 +1,5 @@
 import streamlit as st
 import streamlit_authenticator as stauth
-import bcrypt
 
 def get_users(supabase):
     res = supabase.table("users").select("*").execute()
@@ -13,7 +12,7 @@ def get_users(supabase):
     return credentials
 
 def register_user(supabase, username, password):
-    hashed = bcrypt.hashpw(password.encode('utf-8'), bcrypt.gensalt()).decode('utf-8')
+    hashed = stauth.Hasher.hash(password)
     supabase.table("users").insert({
         "username": username,
         "password": hashed
